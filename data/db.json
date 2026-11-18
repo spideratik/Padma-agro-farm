@@ -1,0 +1,129 @@
+{
+  "settings": {
+    "businessName": "Chapai Mango Direct",
+    "location": "Chapainawabganj Sadar",
+    "totalBigha": 18,
+    "varieties": [
+      {
+        "name": "Katimon",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Aamrupali",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Gormoti",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Bari-4",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Himsagar (Khirsapat)",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Langra",
+        "pricePerKg": 0,
+        "active": true
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Block A (North)",
+        "bigha": 6
+      },
+      {
+        "name": "Block B (Central)",
+        "bigha": 6
+      },
+      {
+        "name": "Block C (South River-side)",
+        "bigha": 6
+      }
+    ],
+    "couriers": [
+      "Steadfast",
+      "Pathao",
+      "RedX",
+      "Sundarban Courier",
+      "SA Paribahan"
+    ],
+    "paymentMethods": [
+      "Cash on Delivery (COD)",
+      "bKash",
+      "Nagad",
+      "Rocket",
+      "Bank Transfer"
+    ],
+    "orderSources": [
+      "Website",
+      "Facebook",
+      "WhatsApp",
+      "Phone Call",
+      "Other"
+    ],
+    "categories": [
+      "Land Lease",
+      "Trees / Orchard Assets",
+      "Equipment & Tools",
+      "Fertilizer & Pesticide",
+      "Irrigation & Orchard Care",
+      "Plucking & Packing Labor",
+      "Cartons & Packaging",
+      "Local Transport",
+      "Marketing & Ads",
+      "Grade-B / Local Market Sales",
+      "Other"
+    ],
+    "delivery": {
+      "insideDhakaDistricts": [
+        "Dhaka",
+        "Gazipur",
+        "Narayanganj"
+      ],
+      "insidePerKg": 12,
+      "outsidePerKg": 14,
+      "minCharge": 100
+    },
+    "packaging": {
+      "boxKg": 12,
+      "perBox": 80
+    },
+    "codFeePercent": 1,
+    "enforceStock": false,
+    "allowedOrigins": [],
+    "analysis": {
+      "expectedTotalKg": 0,
+      "gradeAPercent": 85,
+      "wastagePercent": 3,
+      "avgRatePerKg": 0,
+      "returnPercent": 3,
+      "gradeBRatePerKg": 0,
+      "plannedExtraCost": 0
+    }
+  },
+  "harvests": [],
+  "orders": [],
+  "expenses": [],
+  "settlements": [],
+  "counters": {
+    "order": 0,
+    "harvest": 0,
+    "expense": 0,
+    "settlement": 0
+  },
+  "secrets": {
+    "apiKey": "cm_live_e8ab0a4ac71c92b7e9d0feef5eecdf3a2b0a",
+    "tokenSecret": "e91179716d85b4d0e2e9cb3ff98f3de2459e0971f7408083b8a1d32bd1e5d87b",
+    "salt": "ee5dce33154f67a57a240275a12360d9",
+    "passwordHash": "e27b23f47fc5df77027359ead197cf949957bc6699a3ee23153a043bc394256d"
+  }
+}

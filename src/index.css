@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Bengali", sans-serif; }
+
+@media print {
+  body * { visibility: hidden; }
+  #printable-waybill, #printable-waybill * { visibility: visible; }
+  #printable-waybill { position: absolute; left: 0; top: 0; width: 100%; }
+}
