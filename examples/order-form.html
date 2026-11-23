@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padma Agro Farm — Order Fresh Mangoes</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI","Noto Sans Bengali",sans-serif;background:#f5f5f4;margin:0;color:#1c1917}
+  main{max-width:640px;margin:0 auto;padding:20px}
+  h1{font-size:22px;margin:8px 0 4px} p.sub{color:#78716c;margin:0 0 16px;font-size:14px}
+  form,.card{background:#fff;border:1px solid #e7e5e4;border-radius:16px;padding:18px;margin-bottom:16px}
+  label{display:block;font-size:12px;font-weight:600;margin:10px 0 4px}
+  input,select,textarea{width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid #d6d3d1;border-radius:10px;font-size:15px}
+  .row{display:grid;grid-template-columns:2fr 1fr;gap:8px}
+  button{background:#065f46;color:#fff;border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600;cursor:pointer;width:100%;margin-top:14px}
+  button.link{background:none;color:#047857;width:auto;padding:6px 0;font-size:13px;margin-top:6px}
+  .total{font-size:15px;line-height:1.7} .total b{font-size:20px}
+  .err{color:#b91c1c;font-size:14px;margin-top:10px}.ok{color:#047857}
+</style>
+</head>
+<body>
+<main>
+  <h1>🥭 <span id="biz">Padma Agro Farm</span></h1>
+  <p class="sub">Order fresh mangoes direct from our orchard in Chapainawabganj. Cash on delivery or bKash/Nagad.</p>
+
+  <form id="f">
+    <div id="items"></div>
+    <button type="button" class="link" id="add">+ Add another variety</button>
+
+    <label>Your name</label><input name="customerName" required>
+    <label>Mobile number</label><input name="phone" placeholder="01XXXXXXXXX" required>
+    <div class="row">
+      <div><label>District</label><input name="district" list="districts" required></div>
+      <div><label>Payment</label><select name="paymentMethod" id="pay"></select></div>
+    </div>
+    <datalist id="districts"></datalist>
+    <label>Full address</label><textarea name="address" rows="2" required></textarea>
+    <div id="trx" style="display:none"><label>bKash / Nagad transaction ID</label><input name="paymentRef"></div>
+    <label>Note (optional)</label><input name="notes">
+
+    <div class="total card" id="total" style="margin-top:14px">Choose a variety to see the price.</div>
+    <button type="submit" id="submit">Place order</button>
+    <div id="msg"></div>
+  </form>
+</main>
+
+<script>
+/* ===== CONFIG — edit these two lines ===== */
+const API = "";            // "" = same server as the ERP; otherwise e.g. "https://erp.yourdomain.com"
+const API_KEY = "";        // paste your key from ERP > Settings. NOTE: visible to visitors in this browser version.
+/* For production, post to YOUR OWN server and add the x-api-key header there (see Settings > code samples). */
+
+const $ = (s) => document.querySelector(s);
+let catalog;
+
+const taka = (n) => "৳" + Math.round(n).toLocaleString("en-IN");
+
+function itemRow() {
+  const d = document.createElement("div");
+  d.className = "row";
+  d.innerHTML = `<div><label>Mango variety</label><select class="v"></select></div>
+                 <div><label>Weight (kg)</label><input class="w" type="number" min="1" step="1" value="12"></div>`;
+  const sel = d.querySelector(".v");
+  sel.innerHTML = catalog.varieties.map(v =>
+    `<option value="${v.name}">${v.name} — ${taka(v.pricePerKg)}/kg${v.inStock ? "" : " (pre-order)"}</option>`).join("");
+  d.addEventListener("input", quote);
+  $("#items").appendChild(d);
+}
+
+const basket = () => [...document.querySelectorAll("#items .row")].map(r => ({
+  variety: r.querySelector(".v").value, weightKg: Number(r.querySelector(".w").value) || 0
+})).filter(i => i.weightKg > 0);
+
+async function quote() {
+  const items = basket();
+  if (!items.length) return;
+  const res = await fetch(API + "/api/public/quote", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ district: $("[name=district]").value, items })
+  });
+  const q = await res.json();
+  if (!q.ok) { $("#total").innerHTML = `<span class="err">${q.error}</span>`; return; }
+  $("#total").innerHTML = `Mangoes (${q.totalKg} kg): ${taka(q.subtotal)}<br>Packaging: ${taka(q.packagingCost)}<br>Delivery: ${taka(q.courierFee)}<br><b>Total: ${taka(q.total)}</b>`;
+}
+
+(async function init() {
+  const res = await fetch(API + "/api/public/catalog");
+  catalog = await res.json();
+  if (catalog.business) { $("#biz").textContent = catalog.business; document.title = catalog.business + " — Order Fresh Mangoes"; }
+  if (!catalog.varieties.length) { $("#f").innerHTML = "<p>Ordering is not open yet. Please check back soon.</p>"; return; }
+  itemRow();
+  $("#pay").innerHTML = catalog.paymentMethods.map(m => `<option>${m}</option>`).join("");
+  $("#districts").innerHTML = ["Dhaka","Gazipur","Narayanganj","Chattogram","Sylhet","Rajshahi","Khulna","Barishal","Rangpur","Mymensingh","Cumilla","Bogura"].map(d => `<option value="${d}">`).join("");
+  $("#add").onclick = () => { itemRow(); quote(); };
+  $("[name=district]").addEventListener("change", quote);
+  $("#pay").addEventListener("change", () => { $("#trx").style.display = /cod|cash/i.test($("#pay").value) ? "none" : "block"; });
+  quote();
+})();
+
+$("#f").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = Object.fromEntries(new FormData(e.target));
+  $("#submit").disabled = true; $("#msg").innerHTML = "";
+  try {
+    const res = await fetch(API + "/api/public/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-api-key": API_KEY },
+      body: JSON.stringify({ ...fd, items: basket(), externalId: "web-" + Date.now() })
+    });
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error);
+    $("#msg").innerHTML = `<p class="ok"><b>Thank you!</b> Order <b>${d.orderId}</b> received. Total ${taka(d.total)}${d.codAmount ? `, pay ${taka(d.codAmount)} on delivery` : ""}. We will call you to confirm.</p>`;
+    e.target.reset();
+  } catch (err) {
+    $("#msg").innerHTML = `<p class="err">${err.message}</p>`;
+  } finally { $("#submit").disabled = false; }
+});
+</script>
+</body>
+</html>
