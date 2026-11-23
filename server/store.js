@@ -113,6 +113,14 @@ export function load() {
     db.settings.categories = [...new Set([...(db.settings.categories || []), ...DEFAULT_CATEGORIES])];
     if (db.settings.businessName === 'Chapai Mango Direct') db.settings.businessName = 'Padma Agro Farm';
     if (!db.settings.enterprises.includes('Mango')) db.settings.enterprises.unshift('Mango');
+    // Hosting without a terminal? Setting ADMIN_PASSWORD in the host's environment variables always takes effect on start.
+    const envPw = process.env.ADMIN_PASSWORD;
+    if (envPw && hashPassword(envPw, db.secrets.salt) !== db.secrets.passwordHash) {
+      const salt = crypto.randomBytes(16).toString('hex');
+      db.secrets.salt = salt;
+      db.secrets.passwordHash = hashPassword(envPw, salt);
+      save();
+    }
   } else {
     const f = freshDb();
     db = f.db;

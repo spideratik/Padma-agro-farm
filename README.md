@@ -13,6 +13,8 @@ npm start            # http://localhost:3001  (serves the app + API)
 Development with hot reload: `npm run dev` (app on :5173, API on :3001).
 
 On first start the server prints a random **admin password** once (or set `ADMIN_PASSWORD` before the very first start). Lost it? Stop the server and run `npm run reset-password` (or `npm run reset-password -- YourNewPassword`). Change it any time in Settings.
+**On a host without a terminal:** set the environment variable `ADMIN_PASSWORD` (8+ characters). It is applied on every start, so redeploy/restart and sign in with it. (While it is set, a password changed in Settings is replaced by it on the next restart.)
+Your local password does not carry over to a server: the server creates its own fresh `data/db.json`.
 Data is stored in `data/db.json` (back this file up). Run `npm test` for the API test suite.
 
 ## First setup (10 minutes)
@@ -50,3 +52,8 @@ A sample page is at `/examples/order-form.html`.
 
 Put it behind HTTPS (Caddy/nginx/Cloudflare Tunnel) on a VPS. Set `PORT`, `DATA_DIR` and `ADMIN_PASSWORD` as needed.
 Orders are held in a JSON file, fine for one orchard; move to SQLite/Postgres if you outgrow it.
+
+## Hosting notes
+
+The app is one long-running Node server that saves to a file, so it needs a host with a **persistent disk**: a VPS, Render (with a disk), Railway (with a volume) or Fly.io (with a volume). Set `DATA_DIR` to the disk's path and `ADMIN_PASSWORD`.
+It does **not** work properly on Vercel or Netlify functions: their file system is temporary, so orders and expenses would disappear.
