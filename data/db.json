@@ -138,9 +138,9 @@
     "settlement": 0
   },
   "secrets": {
-    "apiKey": "pa_live_f03a7191c3b27790e8169290e3fe2dd27606",
-    "tokenSecret": "f7c4fad2e113ebf3b43a849ec47f9793b1a7e07386728d5d416956a819ccb65c",
-    "salt": "ff201d64b5e5275de65c42c1cfd25427",
-    "passwordHash": "6b651bf228e7e7e5d7de5746ecdf96749befc1cf9ad24e251c446c9bbd5930c7"
+    "apiKey": "pa_live_2e459f750ef2d687948ceddf02c1d74e106e",
+    "tokenSecret": "9c419078b571318cf32724d620007096ac9438015e6e4d4681ef324ce37126d3",
+    "salt": "6dcef0cd31fb7f2dc2acfb56980bed67",
+    "passwordHash": "679de3dcc1bed3eade1325db5f8e010facf00fcae325d7434058766f0e182d85"
   }
 }

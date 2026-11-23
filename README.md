@@ -1,7 +1,5 @@
 # Padma Agro Farm ERP v2
 
-do not work properly??
-
 Farm management ERP for Padma Agro Farm: mango orchard with direct-to-customer courier sales, plus sheep, kali dal and vegetables. Includes a website order API.
 
 ## Run
