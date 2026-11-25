@@ -1,0 +1,146 @@
+{
+  "settings": {
+    "businessName": "Padma Agro Farm",
+    "location": "Chapainawabganj Sadar",
+    "totalBigha": 18,
+    "varieties": [
+      {
+        "name": "Katimon",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Aamrupali",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Gormoti",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Bari-4",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Himsagar (Khirsapat)",
+        "pricePerKg": 0,
+        "active": true
+      },
+      {
+        "name": "Langra",
+        "pricePerKg": 0,
+        "active": true
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Block A (North)",
+        "bigha": 6
+      },
+      {
+        "name": "Block B (Central)",
+        "bigha": 6
+      },
+      {
+        "name": "Block C (South River-side)",
+        "bigha": 6
+      }
+    ],
+    "couriers": [
+      "Steadfast",
+      "Pathao",
+      "RedX",
+      "Sundarban Courier",
+      "SA Paribahan"
+    ],
+    "paymentMethods": [
+      "Cash on Delivery (COD)",
+      "bKash",
+      "Nagad",
+      "Rocket",
+      "Bank Transfer"
+    ],
+    "orderSources": [
+      "Website",
+      "Facebook",
+      "WhatsApp",
+      "Phone Call",
+      "Other"
+    ],
+    "enterprises": [
+      "Mango",
+      "Sheep",
+      "Kali Dal",
+      "Vegetables"
+    ],
+    "seasonStart": "",
+    "seasonEnd": "",
+    "categories": [
+      "Land Lease",
+      "Equipment Purchase",
+      "Tools & Machinery Repair",
+      "Trees / Seedlings / Seeds",
+      "Livestock Purchase (Sheep)",
+      "Fertilizer",
+      "Pesticide",
+      "Medicine / Vet Care",
+      "Labor / Wages",
+      "Plucking & Packing Labor",
+      "Feed & Fodder",
+      "Irrigation / Electricity / Diesel",
+      "Cartons & Packaging",
+      "Local Transport",
+      "Marketing & Ads",
+      "Shed / Fencing / Storage",
+      "Crop / Produce Sales",
+      "Livestock Sales",
+      "Grade-B / Local Market Sales",
+      "Other"
+    ],
+    "delivery": {
+      "insideDhakaDistricts": [
+        "Dhaka",
+        "Gazipur",
+        "Narayanganj"
+      ],
+      "insidePerKg": 12,
+      "outsidePerKg": 14,
+      "minCharge": 100
+    },
+    "packaging": {
+      "boxKg": 12,
+      "perBox": 80
+    },
+    "codFeePercent": 1,
+    "enforceStock": false,
+    "allowedOrigins": [],
+    "analysis": {
+      "expectedTotalKg": 0,
+      "gradeAPercent": 85,
+      "wastagePercent": 3,
+      "avgRatePerKg": 0,
+      "returnPercent": 3,
+      "gradeBRatePerKg": 0,
+      "plannedExtraCost": 0
+    }
+  },
+  "harvests": [],
+  "orders": [],
+  "expenses": [],
+  "settlements": [],
+  "counters": {
+    "order": 0,
+    "harvest": 0,
+    "expense": 0,
+    "settlement": 0
+  },
+  "secrets": {
+    "apiKey": "pa_live_5ea4348de47898d2abf5986660ea6bb0daa2",
+    "tokenSecret": "262f3ea4daad18b956b191a07d710605288bd19efb7a42cbc0386c2cf5f73fbb",
+    "salt": "ad493351bec7ec394390ac1094be82ed",
+    "passwordHash": "451c230bd791ae4a14038825951c3972c0c6541fccf981a10171ad48463a88e5"
+  }
+}
